@@ -40,6 +40,21 @@ public final class Database implements AutoCloseable {
         }
     }
 
+    /** Atomically debits an internal balance after creating it when necessary. */
+    public synchronized boolean withdraw(UUID id, double initialBalance, double amount) throws SQLException {
+        if (amount <= 0) return false;
+        double balance = findOrCreateBalance(id, initialBalance);
+        if (balance < amount) return false;
+        updateBalance(id, balance - amount);
+        return true;
+    }
+
+    /** Atomically credits an internal balance after creating it when necessary. */
+    public synchronized void deposit(UUID id, double initialBalance, double amount) throws SQLException {
+        if (amount <= 0) return;
+        updateBalance(id, findOrCreateBalance(id, initialBalance) + amount);
+    }
+
     public synchronized void history(UUID id, String game, double bet, double payout, String result) {
         try (PreparedStatement query = connection.prepareStatement("INSERT INTO history(uuid,game,bet,payout,result,created_at) VALUES(?,?,?,?,?,?)")) {
             query.setString(1, id.toString()); query.setString(2, game); query.setDouble(3, bet);

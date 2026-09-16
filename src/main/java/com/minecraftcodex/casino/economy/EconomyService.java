@@ -33,10 +33,7 @@ public final class EconomyService {
             } catch (ReflectiveOperationException ignored) { }
         }
         try {
-            double balance = database.findOrCreateBalance(player.getUniqueId(), startingBalance);
-            if (balance < amount) return false;
-            database.updateBalance(player.getUniqueId(), balance - amount);
-            return true;
+            return database.withdraw(player.getUniqueId(), startingBalance, amount);
         } catch (SQLException ignored) {
             return false;
         }
@@ -50,8 +47,7 @@ public final class EconomyService {
             } catch (ReflectiveOperationException ignored) { }
         }
         try {
-            double balance = database.findOrCreateBalance(player.getUniqueId(), startingBalance);
-            database.updateBalance(player.getUniqueId(), balance + amount);
+            database.deposit(player.getUniqueId(), startingBalance, amount);
         } catch (SQLException ignored) { }
     }
 }
