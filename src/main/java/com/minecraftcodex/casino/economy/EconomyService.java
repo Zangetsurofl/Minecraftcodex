@@ -1,0 +1,8 @@
+package com.minecraftcodex.casino.economy;
+import com.minecraftcodex.casino.database.Database; import org.bukkit.entity.Player; import org.bukkit.plugin.ServicesManager; import java.sql.SQLException;
+/** Uses Vault reflectively when installed, avoiding a hard runtime dependency. */
+public final class EconomyService { private final Database db; private final double start; private final ServicesManager services; private Object vault;
+ public EconomyService(Database db,double start,ServicesManager services){this.db=db;this.start=start;this.services=services;try{Class<?> type=Class.forName("net.milkbowl.vault.economy.Economy");var reg=services.getRegistration(type);if(reg!=null)vault=reg.getProvider();}catch(ClassNotFoundException ignored){}}
+ public boolean take(Player p,double amount){if(vault!=null)try{if(!(boolean)vault.getClass().getMethod("has",org.bukkit.OfflinePlayer.class,double.class).invoke(vault,p,amount))return false;Object response=vault.getClass().getMethod("withdrawPlayer",org.bukkit.OfflinePlayer.class,double.class).invoke(vault,p,amount);return (boolean)response.getClass().getMethod("transactionSuccess").invoke(response);}catch(ReflectiveOperationException ignored){}try{double b=db.balance(p.getUniqueId(),start);if(b<amount)return false;db.balance(p.getUniqueId(),b-amount);return true;}catch(SQLException e){return false;}}
+ public void give(Player p,double amount){if(vault!=null)try{vault.getClass().getMethod("depositPlayer",org.bukkit.OfflinePlayer.class,double.class).invoke(vault,p,amount);return;}catch(ReflectiveOperationException ignored){}try{double b=db.balance(p.getUniqueId(),start);db.balance(p.getUniqueId(),b+amount);}catch(SQLException ignored){}}
+}

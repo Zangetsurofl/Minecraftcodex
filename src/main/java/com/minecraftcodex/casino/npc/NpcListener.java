@@ -1,0 +1,4 @@
+package com.minecraftcodex.casino.npc;
+import com.minecraftcodex.casino.Main; import org.bukkit.entity.*; import org.bukkit.event.*; import org.bukkit.event.player.PlayerInteractEntityEvent; import java.util.*;
+/** Citizens is optional: named Citizens NPCs or armor stands named "Casino <game>" open their game. */
+public final class NpcListener implements Listener {private final Main plugin;public NpcListener(Main p){plugin=p;}@EventHandler public void click(PlayerInteractEntityEvent e){if(!plugin.getConfig().getBoolean("npcs.enabled"))return;Entity n=e.getRightClicked();if(!(n instanceof ArmorStand) && !n.getScoreboardTags().contains("NPC"))return;String name=n.getCustomName();if(name==null)return;String game=name.replace("§","").toLowerCase(Locale.ROOT).replace("casino ","");if(plugin.gui().open(e.getPlayer(),game))e.setCancelled(true);}}

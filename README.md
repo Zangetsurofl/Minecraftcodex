@@ -1,28 +1,19 @@
-# LawAndOrder
+# Casino
 
-Paper 1.20+ plugin (Java 21) that adds Police, Criminal, and Civilian gameplay.
+Paper 1.20+ / Java 21 casino plugin with GUI slot machines, blackjack, poker table, roulette, and Truth-or-Lie party game.
 
-## Build and install
+## Build
 
 ```bash
 mvn clean package
 ```
 
-Copy `target/LawAndOrder.jar` into the Paper server's `plugins/` directory and restart. Configure the jail location, sentence duration, wanted limit, hide chance, fee, and all player-facing messages in `plugins/LawAndOrder/config.yml`.
+Install `target/Casino.jar` in a Paper server's `plugins` folder. The SQLite database is created at `plugins/Casino/casino.db`; Vault is used automatically when present, otherwise Casino stores balances internally. `Citizens` is optional: create NPCs named `Casino Slots`, `Casino Blackjack`, `Casino Poker`, `Casino Roulette`, or `Casino TruthLie`; named armor stands work as a no-dependency alternative.
 
-## Roles and commands
+## Usage
 
-Roles are controlled with permissions: `laworder.police`, `laworder.criminal`, and `laworder.admin`. Players without either faction permission are civilians. The resolved faction, wanted level, jail expiry, and gang membership are persisted in `players.yml`.
+Players use `/casino <slots|blackjack|poker|roulette|truthlie>` as an admin/testing entry point, but normal play is through named casino NPCs and inventory GUI buttons. `/casino bet <amount>` sets the currently selected stake (within configured limits). All player-facing text is in `messages.yml`; payouts, bets, questions, and CustomModelData values are in `config.yml`.
 
-| Command | Permission | Purpose |
-| --- | --- | --- |
-| `/duty on\|off` | police | Set on-duty status. |
-| `/wanted <player>` | police | Add one wanted star. |
-| `/arrest <player>` | police | Jail wanted targets; at maximum wanted level no duty status is required. |
-| `/fine <player> <amount>` | police | Withdraw a fine through Vault when its economy provider is available. |
-| `/crime` | criminal | Add one wanted star to yourself. |
-| `/hide` | criminal | Pay the configured fee and attempt to clear wanted status. |
-| `/gang create <name>` | criminal | Create a gang. |
-| `/gang invite <player>` | gang leader | Invite a player. |
-| `/gang join` | criminal | Accept the latest invitation. |
-| `/gang leave` | criminal | Leave a gang. |
+### Resource-pack models
+
+`CustomModelData` references are intentionally code-only: chips use `1000`, slot symbols use `1101`–`1105`, and cards begin at `2001`. Supply matching PNG/item models in your server resource pack.
