@@ -1,43 +1,28 @@
-jail:
-  world: world
-  x: 0.5
-  y: 64.0
-  z: 0.5
-  yaw: 0.0
-  pitch: 0.0
-  duration-minutes: 15
-wanted:
-  max-level: 5
-hide:
-  success-chance: 0.45
-  fee: 0.0
-messages:
-  prefix: '&8[&bLawAndOrder&8] &r'
-  no-permission: '&cYou do not have permission.'
-  players-only: '&cOnly players can use this command.'
-  usage: '&eUsage: {usage}'
-  duty-on: '&aYou are now on duty.'
-  duty-off: '&eYou are now off duty.'
-  duty-required: '&cYou must be on duty.'
-  wanted-issued: '&e{player} is now wanted: {level}/{max} stars.'
-  wanted-status: '&e{player} has {level}/{max} wanted stars.'
-  crime: '&cCrime committed. Wanted level: {level}/{max}.'
-  hide-success: '&aYour identity was hidden; your wanted level is cleared.'
-  hide-failed: '&cYour attempt to hide failed.'
-  hide-no-wanted: '&eYou are not wanted.'
-  hide-no-money: '&cYou cannot afford the hide fee.'
-  arrested: '&c{player} was arrested for {minutes} minutes.'
-  jailed: '&cYou are jailed for {minutes} minutes.'
-  released: '&aYou have been released from jail.'
-  not-wanted: '&eThat player is not wanted.'
-  gang-created: '&aGang {gang} created.'
-  gang-invited: '&aInvited {player} to your gang.'
-  gang-invitation: '&eYou were invited to gang {gang}. Use /gang join to accept.'
-  gang-joined: '&aYou joined gang {gang}.'
-  gang-left: '&eYou left your gang.'
-  gang-exists: '&cThat gang already exists.'
-  gang-none: '&cYou are not in a gang.'
-  gang-leader: '&cOnly the gang leader can invite players.'
-  fine-success: '&aFined {player} {amount}.'
-  vault-unavailable: '&cVault economy is unavailable.'
-  invalid-amount: '&cAmount must be a positive number.'
+economy:
+  starting-balance: 1000.0
+bets:
+  default: 25.0
+  minimum: 5.0
+  maximum: 1000.0
+slots:
+  spin-ticks: 50
+  multipliers:
+    CHERRY: 3.0
+    LEMON: 2.0
+    SEVEN: 10.0
+    BAR: 5.0
+    STAR: 7.0
+custom-model-data:
+  chip: 1000
+  slots: {cherry: 1101, lemon: 1102, seven: 1103, bar: 1104, star: 1105}
+  cards:
+    back: 2000
+    # Add resource-pack card textures starting at this value: 2001 + suitIndex * 13 + rankIndex.
+    first-card: 2001
+questions:
+  - 'I have visited another country.'
+  - 'I prefer diamonds to netherite.'
+  - 'I have defeated the Ender Dragon.'
+npcs:
+  enabled: true
+  # Citizens NPC names to bind: Casino Slots, Casino Blackjack, Casino Poker, Casino Roulette, Casino TruthLie.

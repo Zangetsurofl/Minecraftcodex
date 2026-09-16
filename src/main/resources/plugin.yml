@@ -1,18 +1,13 @@
-name: LawAndOrder
+name: Casino
 version: 1.0.0
-main: com.minecraftcodex.lawandorder.LawAndOrderPlugin
+main: com.minecraftcodex.casino.Main
 api-version: '1.20'
 author: Minecraftcodex
-softdepend: [Vault]
+softdepend: [Vault, Citizens]
 commands:
-  duty: {description: Toggle police duty, usage: /duty <on|off>}
-  wanted: {description: Add a wanted star, usage: /wanted <player>}
-  arrest: {description: Send a wanted player to jail, usage: /arrest <player>}
-  fine: {description: Fine a player through Vault, usage: /fine <player> <amount>}
-  crime: {description: Commit a crime}
-  hide: {description: Attempt to remove your wanted level}
-  gang: {description: Manage gangs, usage: /gang <create|invite|leave>}
+  casino:
+    description: Opens a Casino game menu
+    usage: /casino <slots|blackjack|poker|roulette|truthlie>
 permissions:
-  laworder.police: {description: Police faction commands, default: op}
-  laworder.criminal: {description: Criminal faction commands, default: false}
-  laworder.admin: {description: Full LawAndOrder access, default: op}
+  casino.admin:
+    default: op
